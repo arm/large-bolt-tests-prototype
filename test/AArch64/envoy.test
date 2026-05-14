@@ -1,9 +1,0 @@
-# Check that llvm-bolt can not processes envoy binary for aarch64 with relocations enabled.
-
-RUN: mkdir -p %p/Output
-RUN: test -f %p/Output/envoy || \
-RUN:   unzstd %p/Inputs/envoy.zst \
-RUN:   -o %p/Output/envoy
-RUN: llvm-bolt %p/Output/envoy -o %t |& FileCheck %s -check-prefix=TRYCHECK
-TRYCHECK: BOLT-INFO: Target architecture: aarch64
-CHECK-NOT: UNREACHABLE

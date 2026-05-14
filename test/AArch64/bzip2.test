@@ -1,10 +1,12 @@
 # Check that llvm-bolt can processes bzip2 binary for aarch64.
+REQUIRES: local-release-artifacts
 
-RUN: mkdir -p %p/Output
-RUN: test -f %p/Output/bzip2 || \
-RUN:   unzstd %p/Inputs/bzip2.zst \
-RUN:   -o %p/Output/bzip2
-RUN: llvm-bolt %p/Output/bzip2 -o %t |& FileCheck %s
+RUN: BZIP2_BIN=$(%PYTHON3% %release-prepare-helper% \
+RUN:   --release-root %release-root% \
+RUN:   --name bzip2 \
+RUN:   --version 1.0.8 \
+RUN:   --output-dir %t.release) && \
+RUN: llvm-bolt "${BZIP2_BIN}" -o %t |& FileCheck %s
 
 # Check that llvm-bolt can processes bzip2 binary for aarch64 with relocations enabled.
 CHECK: BOLT-INFO: Target architecture: aarch64

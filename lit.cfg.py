@@ -3,6 +3,7 @@
 import os
 import platform
 import re
+import shlex
 import subprocess
 import sys
 import tempfile
@@ -62,6 +63,26 @@ llvm_config.with_system_environment(
     ['ASAN_SYMBOLIZER_PATH', 'MSAN_SYMBOLIZER_PATH'])
 
 config.substitutions.append(('%PATH%', config.environment['PATH']))
+config.substitutions.append(('%PYTHON3%', shlex.quote(config.python3_executable)))
+
+release_prepare_helper = os.path.join(
+    config.bolt_tests_src_root, 'scripts', 'prepare-release-artifact.py')
+if not os.path.isfile(release_prepare_helper):
+    lit_config.fatal(
+        "missing release prepare helper: {}".format(release_prepare_helper))
+config.substitutions.append(
+    ('%release-prepare-helper%', shlex.quote(release_prepare_helper)))
+
+release_root = (
+    lit_config.params.get('release_root') or
+    os.environ.get('LARGE_BOLT_TESTS_PROTOTYPE_RELEASE_ROOT') or
+    os.environ.get('LARGE_BOLT_RELEASE_ROOT'))
+if release_root:
+    release_root = os.path.abspath(release_root)
+    if not os.path.isdir(release_root):
+        lit_config.fatal("release_root does not exist: {}".format(release_root))
+    config.available_features.add('local-release-artifacts')
+    config.substitutions.append(('%release-root%', shlex.quote(release_root)))
 
 def calculate_arch_features(arch_string):
     features = []

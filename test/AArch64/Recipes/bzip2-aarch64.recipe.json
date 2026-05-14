@@ -1,0 +1,11 @@
+{
+  "name": "bzip2",
+  "platform": "linux/arm64",
+  "version": "1.0.8",
+  "recipe": "test/AArch64/Recipes/bzip2-aarch64.Dockerfile",
+  "source_url": "https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz",
+  "source_sha256": "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269",
+  "binary_path": "bin/bzip2",
+  "test": "test/AArch64/bzip2.test",
+  "justification": "Prototype recipe for release-backed large-bolt-tests-prototype artifacts on AArch64."
+}

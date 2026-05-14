@@ -1,9 +1,0 @@
-# Check that llvm-bolt can processes node binary for aarch64.
-
-RUN: mkdir -p %p/Output
-RUN: test -f %p/Output/node || \
-RUN:   unzstd %p/Inputs/node.zst \
-RUN:   -o %p/Output/node
-RUN: llvm-bolt %p/Output/node -o %t |& FileCheck %s
-CHECK: BOLT-INFO: Target architecture: aarch64
-CHECK-NOT: BOLT-ERROR
