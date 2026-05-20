@@ -163,17 +163,17 @@ export LARGE_BOLT_TESTS_PROTOTYPE_RELEASE_ROOT="$ARTIFACT_ROOT"
 `LARGE_BOLT_RELEASE_ROOT` is still accepted as a backward-compatible alias.
 
 If you prefer the generated LLVM target, running `check-large-bolt`
-from the `bolt-built` directory is still the suite entry point for
+from the `bolt-build` directory is still the suite entry point for
 this external project. For example:
 ```bash
-$PWD/bolt-built ninja check-large-bolt
+$PWD/bolt-build ninja check-large-bolt
 ```
 
 For the current local release-backed `bzip2`
 workflow, running `llvm-lit` directly with `--param=release_root=...`
 is the clearest option. For example:
 ```bash
-llvm-lit --param=release_root=$ARTIFACT_ROOT --filter='bzip2\.test$' $PWD/bolt-built/tools/bolttests -a
+llvm-lit --param=release_root=$ARTIFACT_ROOT --filter='bzip2\.test$' $PWD/bolt-build/tools/bolttests -a
 ```
 
 The `bzip2` test uses that release root to locate:
