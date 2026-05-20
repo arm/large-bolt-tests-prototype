@@ -28,7 +28,6 @@ RUN curl -fsSLO https://sourceware.org/pub/bzip2/bzip2-${BZIP2_VERSION}.tar.gz \
 
 WORKDIR /build/src
 
-# Match the Nix recipe: force the link step to respect LDFLAGS.
 RUN sed -i 's/$(CC) $(CFLAGS) -o bzip2 /$(CC) $(CFLAGS) $(LDFLAGS) -o bzip2 /' Makefile \
     && sed -i 's/$(CC) $(CFLAGS) -o bzip2recover /$(CC) $(CFLAGS) $(LDFLAGS) -o bzip2recover /' Makefile
 
