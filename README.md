@@ -171,10 +171,7 @@ $PWD/bolt-build ninja check-large-bolt
 
 For the current local release-backed `bzip2`
 workflow, running `llvm-lit` directly with `--param=release_root=...`
-is the clearest option. For example:
-```bash
-llvm-lit --param=release_root=$ARTIFACT_ROOT --filter='bzip2\.test$' $PWD/bolt-build/tools/bolttests -a
-```
+is the clearest option.
 
 The `bzip2` test uses that release root to locate:
 
